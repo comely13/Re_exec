@@ -10,3 +10,10 @@ CRptProtocol::CRptProtocol(QObject *parent) : QObject(parent) {
         qDebug()<<"CRptProtocol::CRptProtocol()";
 
 }
+
+bool CRptProtocol::initializeRTP() {
+
+   //init rtp
+   // rtp_session = new RTPSession();
+
+}

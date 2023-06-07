@@ -6,16 +6,45 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "D:/Qt/6.4.2/mingw_64")
+#D:\Qt\6.4.2\msvc2019_64
+
+set(CMAKE_PREFIX_PATH "D:\\Qt\\6.4.2\\msvc2019_64")
+
+
 
 find_package(Qt6 COMPONENTS
         Core
         REQUIRED)
 
-add_executable(Re_Cli main.cpp CController.cpp CController.h CView.cpp CView.h CModel.cpp CModel.h CRptProtocol.cpp CRptProtocol.h)
+include_directories(${PROJECT_SOURCE_DIR}/libs/include)
+link_directories(${PROJECT_SOURCE_DIR}/libs)
+
+
+add_executable(
+        Re_Cli main.cpp
+        CController.cpp
+        CController.h
+        CView.cpp
+        CView.h
+        CModel.cpp
+        CModel.h
+        CRptProtocol.cpp
+        CRptProtocol.h)
+
 target_link_libraries(Re_Cli
         Qt::Core
+        srtp2
         )
+
+if(MSVC)
+    add_compile_options(-Zc:__cplusplus -permissive-)
+elseif(CMAKE_COMPILER_IS_GNUCXX)
+    add_compile_options(-fpermissive)
+else()
+    add_compile_options(-Werror -pedantic)
+endif()
+
+
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
